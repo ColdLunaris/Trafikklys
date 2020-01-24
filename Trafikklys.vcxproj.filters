@@ -20,6 +20,7 @@
       <Filter>Misc Files</Filter>
     </None>
     <None Include="..\Innleveringer\Trafikklys_Oppgave8\Trafikklys_Oppgave8.ino" />
+    <None Include="Trafikklys_Frikk_Oppgave_8.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Trafikklys.vsarduino.h">

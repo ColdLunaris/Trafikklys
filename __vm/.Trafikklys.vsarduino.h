@@ -88,6 +88,7 @@ typedef void *__builtin_va_list;
 #define pgm_read_ptr(address_short)   short()
 
 #include "Trafikklys.ino"
+#include "Trafikklys_Frikk_Oppgave_8.ino"
 #include "..\Innleveringer\Trafikklys_Oppgave8\Trafikklys_Oppgave8.ino"
 #endif
 #endif

@@ -114,6 +114,7 @@
     <None Include="Trafikklys.ino">
       <FileType>CppCode</FileType>
     </None>
+    <None Include="Trafikklys_Frikk_Oppgave_8.ino" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\arduino folders read me.txt">

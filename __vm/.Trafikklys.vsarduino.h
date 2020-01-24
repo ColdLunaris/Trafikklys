@@ -89,6 +89,7 @@ typedef void *__builtin_va_list;
 
 #include "Trafikklys.ino"
 #include "Trafikklys_Frikk_Oppgave_8.ino"
+#include "Trafikklys_Frikk_Oppgave_9.ino"
 #include "..\Innleveringer\Trafikklys_Oppgave8\Trafikklys_Oppgave8.ino"
 #endif
 #endif

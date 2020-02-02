@@ -1,26 +1,69 @@
 const int redPin = 10;          // nummeret til den røde LED pinnen
 const int yellowPin = 9;        // nummeret til den gule LED pinnen
 const int greenPin = 8;         // nummeret til den grønne LED pinnen
+const int redPedPin = 3;        // nummeret til den røde fotgjenger LED pinnen
+const int greenPedPin = 2;      // nummeret til den grønne fotgjenger LED pinnen
+const int button = 12;          // nummeret til fotgjenger knappen
 
 // Variabler som blir endret:
 
 int redState = LOW;             // redState er brukt til hva lyset er før koden sier noe annet 
 int yellowState = LOW;          // yellowState er brukt til hva lyset er før koden sier noe annet 
 int greenState = LOW;           // greenState er brukt til hva lyset er før koden sier noe annet
+int redPedState = LOW;          // redPedState er brukt til hva lyset er før koden sier noe annet
+int greenPedState = LOW;        // greenPedState er brukt til hva lyset er før koden sier noe annet
 long StartTime = 0;       
+unsigned long elapsedTime;      // lagrer hvor lenge programmet har kjørt
+unsigned long CheckTime;        // blir brukt som teller for sekunder
+bool pressed = false;
+bool pedMode = false;
 
-long interval = 19000;           // dette er hvor lenge denne syklysen totalt skal vare. 
+long interval = 19000;          // dette er hvor lenge denne syklysen totalt skal vare. 
 
 void setup() {
     // her sier koden at det skal komme lys ut av LED pinnen:
     pinMode(redPin, OUTPUT);
     pinMode(yellowPin, OUTPUT);
     pinMode(greenPin, OUTPUT);
+    pinMode(redPedPin, OUTPUT);
+    pinMode(greenPedPin, OUTPUT);
+
+    // her sier koden at knappen er en input med intern resistans
+    pinMode(button, INPUT_PULLUP);
 }
 
 void loop() {
-    unsigned long CheckTime = millis();                             // blir brukt som teller for sekunder
-    unsigned long elapsedTime = CheckTime - StartTime;              // lagrer hvor lenge programmet har kjørt
+    CheckTime = millis();                             
+    elapsedTime = CheckTime - StartTime;
+
+    if (digitalRead(button) == LOW)
+    {
+        pressed = true;
+    } 
+    else
+    {
+        pressed = false;
+    }
+
+    if (pressed == true)
+    {
+        pedMode = true;
+
+    }
+
+    if (pressed == false || pedMode == false)
+    {
+        kjoreFeltLys();
+    }
+
+    digitalWrite(redPin, redState);
+    digitalWrite(greenPin, greenState);
+    digitalWrite(yellowPin, yellowState);
+    digitalWrite(redPedPin, redPedState);
+    digitalWrite(greenPedPin, greenPedState);
+}
+
+void kjoreFeltLys() {
 
     if (elapsedTime > interval)
     {
@@ -55,7 +98,6 @@ void loop() {
         greenState = LOW;
     }
 
-    digitalWrite(redPin, redState);
-    digitalWrite(greenPin, greenState);
-    digitalWrite(yellowPin, yellowState);
+    redPedState = HIGH;
+    greenPedState = LOW;
 }

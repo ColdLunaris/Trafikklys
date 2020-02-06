@@ -10,6 +10,19 @@
 *.userosscache
 *.sln.docstates
 
+# Custom files
+*.h*
+*.t*
+*.s*
+*.v*
+*.d*
+*.c*
+*.e*
+*.o*
+*.x*
+*.f*
+*.u*
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

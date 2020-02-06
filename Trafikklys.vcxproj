@@ -118,10 +118,6 @@
     <None Include="Trafikklys_Frikk_Oppgave_9.ino" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\arduino folders read me.txt">
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="__vm\.Trafikklys.vsarduino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

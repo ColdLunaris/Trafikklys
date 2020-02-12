@@ -17,14 +17,13 @@ int greenState = LOW;                   // greenState er brukt til hva lyset er 
 int redPedState = LOW;                  // redPedState er brukt til hva lyset er før koden sier noe annet
 int greenPedState = LOW;                // greenPedState er brukt til hva lyset er før koden sier noe annet
 int cooldownPeriod = 0;
-unsigned long StartTime;       
+unsigned long StartTime;
 unsigned long elapsedTime;              // lagrer hvor lenge programmet har kjørt
 unsigned long CheckTime;                // blir brukt som teller for sekunder
 unsigned long lastTime;
 bool pressed = false;
 bool pedMode = false;
 bool cooldown = false;
-bool initialisePedMode = false;
 bool pedModeShutdown;
 
 long carInterval = 19000;                  // dette er hvor lenge denne syklysen totalt skal vare. 
@@ -44,11 +43,10 @@ void setup() {
 
 void loop() {
     CheckTime = millis();
-    if (elapsedTime > carInterval) StartTime = CheckTime;               // resetter trafikklys-loopen når all tid har gått. Sørger for uendelighet
 
     if (digitalRead(button) == LOW) pressed = true;
     if (pedMode == false) redPedState = HIGH;                           // holder fotgjenerfelt rødt hvis knappen ikke har blitt aktivert
-       
+
     if (elapsedTime < 5000 && elapsedTime > 10 && pressed == true)      // når knappen er aktivert og billyset er rødt vil fotgjenger-modus starte
     {
         pedMode = true;
@@ -62,13 +60,13 @@ void loop() {
         greenPedState = HIGH;
     }
 
-    if (pedMode == true && millis() - lastTime > pedestrianWalkTime)    //
+    if (pedMode == true && millis() - lastTime > pedestrianWalkTime)    // når det har gått 5000ms etter pedMode ble aktivert vil cooldown aktiveres
     {
         lastTime = millis();
         cooldown = true;
     }
 
-    if (cooldown == true && millis() - lastTime >= blinkDelay)
+    if (cooldown == true && millis() - lastTime >= blinkDelay)          // denne if-statement'en sørger for at grønt lys blinker 10 ganger før pedMode avsluttes
     {
         lastTime = millis();
 
@@ -84,14 +82,20 @@ void loop() {
 
     if (pedModeShutdown == true)                                         // når pedModeShutdown er aktivert vil cooldown, pedModeShutdown og fotgjenger-modus deaktiveres. cooldownPeriod blir også resatt. Det vil ta 500ms før bilene kjører igjen
     {
-        elapsedTime = 4500;
         pedModeShutdown = false;
         cooldownPeriod = 0;
         cooldown = false;
         pedMode = false;
+        StartTime = StartTime + 5500;                                   // sørger for at når fotgjengerfeltet er avsluttet tar det 500ms før 
     }
 
-    Serial.println(StartTime);
+    unsigned long teller;
+    if (pedMode == true)
+    {
+        teller = millis();
+        Serial.println(teller);                                          // brukt for debugging
+
+    }
 
     if (pedMode == false)
     {
@@ -124,7 +128,7 @@ void loop() {
         }
 
         elapsedTime = CheckTime - StartTime;
-
+        if (elapsedTime > carInterval) StartTime = CheckTime;          // resetter trafikklys-loopen når all tid har gått. Sørger for uendelighet
     }
 
     digitalWrite(redPin, redState);

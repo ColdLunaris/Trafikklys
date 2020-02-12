@@ -1,8 +1,8 @@
-const int redPin = 10;                  // nummeret til den røde LED pinnen
+const int redPin = 10;                  // nummeret til den rÃ¸de LED pinnen
 const int yellowPin = 9;                // nummeret til den gule LED pinnen
-const int greenPin = 8;                 // nummeret til den grønne LED pinnen
-const int redPedPin = 3;                // nummeret til den røde fotgjenger LED pinnen
-const int greenPedPin = 2;              // nummeret til den grønne fotgjenger LED pinnen
+const int greenPin = 8;                 // nummeret til den grÃ¸nne LED pinnen
+const int redPedPin = 3;                // nummeret til den rÃ¸de fotgjenger LED pinnen
+const int greenPedPin = 2;              // nummeret til den grÃ¸nne fotgjenger LED pinnen
 const int button = 12;                  // nummeret til fotgjenger knappen
 const int pedestrianWaitTime = 5000;
 const int pedestrianWalkTime = 5000;
@@ -11,14 +11,14 @@ const int startDelay = 500;
 
 // Variabler som blir endret:
 
-int redState = LOW;                     // redState er brukt til hva lyset er før koden sier noe annet 
-int yellowState = LOW;                  // yellowState er brukt til hva lyset er før koden sier noe annet 
-int greenState = LOW;                   // greenState er brukt til hva lyset er før koden sier noe annet
-int redPedState = LOW;                  // redPedState er brukt til hva lyset er før koden sier noe annet
-int greenPedState = LOW;                // greenPedState er brukt til hva lyset er før koden sier noe annet
+int redState = LOW;                     // redState er brukt til hva lyset er fÃ¸r koden sier noe annet 
+int yellowState = LOW;                  // yellowState er brukt til hva lyset er fÃ¸r koden sier noe annet 
+int greenState = LOW;                   // greenState er brukt til hva lyset er fÃ¸r koden sier noe annet
+int redPedState = LOW;                  // redPedState er brukt til hva lyset er fÃ¸r koden sier noe annet
+int greenPedState = LOW;                // greenPedState er brukt til hva lyset er fÃ¸r koden sier noe annet
 int cooldownPeriod = 0;
 unsigned long StartTime;
-unsigned long elapsedTime;              // lagrer hvor lenge programmet har kjørt
+unsigned long elapsedTime;              // lagrer hvor lenge programmet har kjÃ¸rt
 unsigned long CheckTime;                // blir brukt som teller for sekunder
 unsigned long lastTime;
 bool pressed = false;
@@ -45,28 +45,28 @@ void loop() {
     CheckTime = millis();
 
     if (digitalRead(button) == LOW) pressed = true;
-    if (pedMode == false) redPedState = HIGH;                           // holder fotgjenerfelt rødt hvis knappen ikke har blitt aktivert
+    if (pedMode == false) redPedState = HIGH;                           // holder fotgjenerfelt rÃ¸dt hvis knappen ikke har blitt aktivert
 
-    if (elapsedTime < 5000 && elapsedTime > 10 && pressed == true)      // når knappen er aktivert og billyset er rødt vil fotgjenger-modus starte
+    if (elapsedTime < 20 && elapsedTime > 10 && pressed == true)        // nÃ¥r knappen er aktivert og billyset er rÃ¸dt vil fotgjenger-modus starte
     {
         pedMode = true;
         pressed = false;
         lastTime = millis();
     }
 
-    if (pedMode == true && cooldown == false)                           // så lenge fotgjenger-modus er aktivert og ikke cooldown vil fotgjengerlyset være grønt
+    if (pedMode == true && cooldown == false)                           // sÃ¥ lenge fotgjenger-modus er aktivert og ikke cooldown vil fotgjengerlyset vÃ¦re grÃ¸nt
     {
         redPedState = LOW;
         greenPedState = HIGH;
     }
 
-    if (pedMode == true && millis() - lastTime > pedestrianWalkTime)    // når det har gått 5000ms etter pedMode ble aktivert vil cooldown aktiveres
+    if (pedMode == true && millis() - lastTime > pedestrianWalkTime)    // nÃ¥r det har gÃ¥tt 5000ms etter pedMode ble aktivert vil cooldown aktiveres
     {
         lastTime = millis();
         cooldown = true;
     }
 
-    if (cooldown == true && millis() - lastTime >= blinkDelay)          // denne if-statement'en sørger for at grønt lys blinker 10 ganger før pedMode avsluttes
+    if (cooldown == true && millis() - lastTime >= blinkDelay)          // denne if-statement'en sÃ¸rger for at grÃ¸nt lys blinker 10 ganger fÃ¸r pedMode avsluttes
     {
         lastTime = millis();
 
@@ -80,13 +80,13 @@ void loop() {
         if (cooldownPeriod >= 11) pedModeShutdown = true;
     }
 
-    if (pedModeShutdown == true)                                         // når pedModeShutdown er aktivert vil cooldown, pedModeShutdown og fotgjenger-modus deaktiveres. cooldownPeriod blir også resatt. Det vil ta 500ms før bilene kjører igjen
+    if (pedModeShutdown == true)                                         // nÃ¥r pedModeShutdown er aktivert vil cooldown, pedModeShutdown og fotgjenger-modus deaktiveres. cooldownPeriod blir ogsÃ¥ resatt. Det vil ta 500ms fÃ¸r bilene kjÃ¸rer igjen
     {
         pedModeShutdown = false;
         cooldownPeriod = 0;
         cooldown = false;
         pedMode = false;
-        StartTime = StartTime + 5500;                                   // sørger for at når fotgjengerfeltet er avsluttet tar det 500ms før 
+        StartTime = StartTime + 5500;                                   // sÃ¸rger for at nÃ¥r fotgjengerfeltet er avsluttet tar det 500ms fÃ¸r 
     }
 
     unsigned long teller;
@@ -99,28 +99,28 @@ void loop() {
 
     if (pedMode == false)
     {
-        if (elapsedTime < 5000)                                         // så lenge det har gått mindre enn 5 sekunder i sekvensen vil lyset være rødt
+        if (elapsedTime < 5000)                                         // sÃ¥ lenge det har gÃ¥tt mindre enn 5 sekunder i sekvensen vil lyset vÃ¦re rÃ¸dt
         {
             redState = HIGH;
             yellowState = LOW;
             greenState = LOW;
         }
 
-        if (elapsedTime > 5000 && elapsedTime < 7000)                   // når det har gått mellom 5 og 7 sekunder vil lyset bli rødt og gult
+        if (elapsedTime > 5000 && elapsedTime < 7000)                   // nÃ¥r det har gÃ¥tt mellom 5 og 7 sekunder vil lyset bli rÃ¸dt og gult
         {
             redState = HIGH;
             yellowState = HIGH;
             greenState = LOW;
         }
 
-        if (elapsedTime > 7000 && elapsedTime < 17000)                  // mellom 7 og 17 sekunder i loopen vil lyse være grønt
+        if (elapsedTime > 7000 && elapsedTime < 17000)                  // mellom 7 og 17 sekunder i loopen vil lyse vÃ¦re grÃ¸nt
         {
             redState = LOW;
             yellowState = LOW;
             greenState = HIGH;
         }
 
-        if (elapsedTime > 17000)                                        // mellom 17 sekunder og makstid, her 19 sekunder, vil lyset være gult. Etter dette vil sekvensen starte på nytt
+        if (elapsedTime > 17000)                                        // mellom 17 sekunder og makstid, her 19 sekunder, vil lyset vÃ¦re gult. Etter dette vil sekvensen starte pÃ¥ nytt
         {
             redState = LOW;
             yellowState = HIGH;
@@ -128,7 +128,7 @@ void loop() {
         }
 
         elapsedTime = CheckTime - StartTime;
-        if (elapsedTime > carInterval) StartTime = CheckTime;          // resetter trafikklys-loopen når all tid har gått. Sørger for uendelighet
+        if (elapsedTime > carInterval) StartTime = CheckTime;          // resetter trafikklys-loopen nÃ¥r all tid har gÃ¥tt. SÃ¸rger for uendelighet
     }
 
     digitalWrite(redPin, redState);

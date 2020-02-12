@@ -8,4 +8,4 @@ Oppgave 9 - Trafikklys_Oppgave9.ino
 
 Oppgave 8 alternativ - Trafikklys_Frikk_Oppgave_8.ino
 
-Oppgave 9 alternativ - Trafikklys_Frikk_Oppgave_9.ino (VELDIG BUGGY. Sudo-random hvilket lys som kommer på etter fotgjengerfeltet blir rødt)
+Oppgave 9 alternativ - Trafikklys_Frikk_Oppgave_9.ino (Bug: må fullføre hovedsekvens før pedMode kan aktiveres. Pseudo-random start av hovedsekvens etter noPed er deaktivert er fikset)
